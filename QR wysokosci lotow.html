@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>QR wysokości lotów</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2fa05ea1-6a83-8075-aaf7-cf4e4ba4455f" class="page sans"><header><h1 class="page-title" dir="auto">QR wysokości lotów</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-date"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/calendar_gray.svg" style="width:14px;height:14px;display:block"/></span>Data utworzenia</th><td><time>@February 1, 2026</time></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/arrow-northeast_gray.svg" style="width:14px;height:14px;display:block"/></span>Rozdział</th><td><a href="https://www.notion.so/07-To-nie-jest-koniec-21605ea16a838000ba93cc634acd2e87?pvs=21">07 To nie jest koniec</a></td></tr><tr class="property-row property-row-status"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/burst_gray.svg" style="width:14px;height:14px;display:block"/></span>Status</th><td><span class="status-value select-value-color-red"><div class="status-dot status-dot-color-red"></div>Wykorzystana</span></td></tr><tr class="property-row property-row-relation"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/arrow-northeast_gray.svg" style="width:14px;height:14px;display:block"/></span>Żródło</th><td><a href="https://www.notion.so/Lucy-23305ea16a83807d8f40df1369b8cd8b?pvs=21">Lucy</a></td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-80cc-b049-f219f0033682" class="">Granice aerodynamiczne lotu samolotów i balonów stratosferycznych</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80e0-b512-e9808bf8f56d" class=""><strong>Cel notatki:</strong> uporządkować pojęcia związane z maksymalnymi wysokościami lotu, granicami aerodynamiki oraz różnicą między samolotem a balonem w stratosferze.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8057-8d8a-fe624ae6975e"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-8031-aa89-ee4a8c6c4a78" class="">Uwaga ogólna</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80f7-b0ae-ddb75c14c4f9" class="">Wysokość sama w sobie nie oznacza lotu: powyżej pewnej granicy samolot nie leci aerodynamicznie, lecz jedynie osiąga punkt trajektorii, a balon – choć wznosi się wyżej – nie wykonuje lotu w sensie aerodynamicznym w ogóle.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8013-a625-c306cb65249c"/></div><div style="display:contents" dir="auto"><h2 id="2fa05ea1-6a83-80d2-98d5-cb65914480a7" class="">I. Samoloty – gdzie kończy się aerodynamika</h2></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-805e-8238-e0baa39cd277" class="">1. Dlaczego wysokość wymaga prędkości</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-804b-b9fd-d01e09e5d590" class="">Siła nośna skrzydła opisana jest zależnością:</p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80fa-a64a-f063e6d980f8" class=""><strong>L = ½ · ρ · V² · S · Cᴸ</strong></p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8078-9301-d299b08b8a29" class="">Gdzie kluczowa jest <strong>gęstość powietrza (ρ)</strong>. Wraz ze wzrostem wysokości gęstość gwałtownie maleje, więc aby utrzymać tę samą siłę nośną, samolot musi:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80a7-874d-d1ff593f3f2e" class="bulleted-list"><li style="list-style-type:disc">zwiększać <strong>rzeczywistą prędkość lotu (TAS)</strong>,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8027-b098-f41494677c1c" class="bulleted-list"><li style="list-style-type:disc">zbliżać się do granic wytrzymałości i sterowalności.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8068-8563-cd305f10e541" class="">Na dużych wysokościach samolot leci <strong>szybko w sensie fizycznym</strong>, mimo że prędkość wskazywana (IAS) pozostaje względnie niska.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-80fc-a8e9-da17559d3dcc"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-805c-8bae-eba07d77dee3" class="">2. Coffin corner – narożnik trumny</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8085-9e7e-c32885175e7d" class=""><strong>Coffin corner</strong> to obszar, w którym:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8093-a697-d6a7756deb94" class="bulleted-list"><li style="list-style-type:disc"><strong>prędkość minimalna (przeciągnięcia)</strong> rośnie z powodu niskiej gęstości,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8083-aaac-dc62a0f75611" class="bulleted-list"><li style="list-style-type:disc"><strong>prędkość maksymalna</strong> jest ograniczona przez zjawiska falowe, drgania lub wytrzymałość konstrukcji.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8070-8dff-ed26a7f69aee" class="">Na dużych wysokościach oba te limity <strong>zbliżają się do siebie</strong>, aż różnica między nimi staje się minimalna.</p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8019-9055-dc7860d8fd9a" class="">W praktyce oznacza to, że:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8041-bf74-c070656551ff" class="bulleted-list"><li style="list-style-type:disc">niewielki spadek prędkości → przeciągnięcie,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80a9-ad2c-db7280ef1263" class="bulleted-list"><li style="list-style-type:disc">niewielki wzrost prędkości → przekroczenie ograniczeń aerodynamicznych lub strukturalnych.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8061-a132-f2bfeb9423f3" class="">To fundamentalna bariera dla lotu poziomego samolotu.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8036-ab7b-c7c362f29505"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-80ea-90a7-fce02779cdcb" class="">3. Zoom climb – czym jest fizycznie</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80f1-a94a-e007b8390703" class=""><strong>Zoom climb</strong> nie jest lotem w sensie aerodynamicznym.</p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80cf-8d70-ddd4713a6c33" class="">To manewr, w którym:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80d2-83fb-fe73a83ee72b" class="bulleted-list"><li style="list-style-type:disc">samolot rozpędza się na dużej wysokości przy zachowanej kontroli aerodynamicznej,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-804a-aafa-db55f605a738" class="bulleted-list"><li style="list-style-type:disc">następnie zamienia <strong>energię kinetyczną w wysokość</strong>,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8072-bf3e-e345c5ebf1f1" class="bulleted-list"><li style="list-style-type:disc">końcowa faza jest ruchem <strong>quasi‑balistycznym</strong>, zanikającą nośną i sterowaniem.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80e7-8519-f8f3f1dcecfd" class="">W szczytowym punkcie zoom climb:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80f2-b385-e476a847062e" class="bulleted-list"><li style="list-style-type:disc">skrzydła nie „niosą”,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8048-b7d6-f14bdd10627b" class="bulleted-list"><li style="list-style-type:disc">samolot znajduje się na granicy lotu i ruchu balistycznego.</li></ul></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8001-9ef1-ea9d95246d5f"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-80c0-932e-dfc6c581b54f" class="">4. Rekordy samolotów – rozróżnienie kategorii</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80b9-9693-e1b82672e931" class=""><strong>Lot poziomy (aerodynamiczny):</strong></p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8030-a151-cc4fe783d8f9" class="bulleted-list"><li style="list-style-type:disc">~25–28 km – praktyczna górna granica</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80cc-a1fc-caeed61b3b92" class="bulleted-list"><li style="list-style-type:disc">Przykłady: SR‑71, NASA Helios (bezzałogowy)</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-807a-9639-de610a83b02e" class=""><strong>Pułap operacyjny:</strong></p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8053-92eb-c67b505d17b1" class="bulleted-list"><li style="list-style-type:disc">~26–27 km (SR‑71 Blackbird)</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8037-b82c-ec94240a5fee" class="bulleted-list"><li style="list-style-type:disc">wysokość, na której możliwy jest powtarzalny, kontrolowany lot</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-809c-b350-cb26544d06ba" class=""><strong>Zoom climb (rekord osiągnięcia):</strong></p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8015-8614-d10bcd4bf5f4" class="bulleted-list"><li style="list-style-type:disc">F‑15 „Streak Eagle”: ~30 km</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80ba-9034-cb14360f0698" class="bulleted-list"><li style="list-style-type:disc">MiG‑25 (E‑266M): <strong>37,6 km</strong> – najwyższy punkt osiągnięty przez samolot załogowy</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80c9-b803-edbeca8a734c" class="">Ten ostatni rekord <strong>nie oznacza lotu</strong>, lecz maksymalną wysokość trajektorii.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-80d3-aaa5-ce84d06b3034"/></div><div style="display:contents" dir="auto"><h2 id="2fa05ea1-6a83-804b-8cb4-fd5590272902" class="">II. Balony stratosferyczne – inna fizyka, inne granice</h2></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-800b-a7c3-f256cd8b3227" class="">1. Zasada wznoszenia balonu</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8086-a2aa-f141a1d6f317" class="">Balon nie korzysta z aerodynamiki. Wznosi się dzięki <strong>wyporowi</strong>, czyli różnicy gęstości między:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80a3-b02a-c8c36899a944" class="bulleted-list"><li style="list-style-type:disc">gazem nośnym (hel, wodór),</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80ac-93d7-ee46d4a91678" class="bulleted-list"><li style="list-style-type:disc">otaczającym powietrzem.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80bb-94e7-f6e23f909336" class="">Wysokość nie wymaga prędkości ani siły nośnej.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8089-b48f-e6c8b8d3538f"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-8078-932c-dd063203069f" class="">2. Co ogranicza wysokość balonu</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80b0-a9ed-ebf17a7c1fc4" class="">Wraz ze wzrostem wysokości:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8073-b314-ec97dd01f1c4" class="bulleted-list"><li style="list-style-type:disc">ciśnienie zewnętrzne maleje,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80b6-a474-c18b1aa88086" class="bulleted-list"><li style="list-style-type:disc">gaz w balonie <strong>rozpręża się</strong>,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8018-9487-f5c84194907c" class="bulleted-list"><li style="list-style-type:disc">objętość rośnie aż do granicy materiałowej powłoki.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80ec-9814-c2ec10737b53" class="">Ograniczeniem balonu jest więc:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8004-ab71-d317995bfd92" class="bulleted-list"><li style="list-style-type:disc"><strong>wytrzymałość materiału</strong>,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8055-9639-f9806aa80c03" class="bulleted-list"><li style="list-style-type:disc">a nie aerodynamika.</li></ul></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8013-bd8e-e2d4f17ee618"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-8054-8aa4-e06c26938981" class="">3. Typowe i rekordowe wysokości balonów</h3></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80f8-9611-d7ac0b134403" class="bulleted-list"><li style="list-style-type:disc">Balony meteorologiczne: 30–35 km</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80a9-8ee4-d3ca0e81e972" class="bulleted-list"><li style="list-style-type:disc">Balony badawcze: 35–40 km</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-808b-b5d8-c984c331566f" class="bulleted-list"><li style="list-style-type:disc">Rekordowe balony bezzałogowe: ~53 km</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80ff-b51a-e62d5b27012b" class="bulleted-list"><li style="list-style-type:disc">Balony załogowe (rekordy): ~41–42 km</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80b7-b6fc-d762c1fa2b1d" class="">Dla balonu <strong>30 km to normalne środowisko pracy</strong>, a nie granica fizyki.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-806a-875f-ce7047561042"/></div><div style="display:contents" dir="auto"><h3 id="2fa05ea1-6a83-800e-b9f6-ef5dbf812bfb" class="">4. Teoretyczna maksymalna wysokość balonu</h3></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-808f-b135-d6848d3f6094" class="">Teoretycznie balon mógłby wznosić się do wysokości, na której:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-80c4-b097-dd3596eea2ac" class="bulleted-list"><li style="list-style-type:disc">gęstość powietrza zrównuje się z efektywną gęstością gazu nośnego wraz z masą powłoki.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-804b-a56a-d6e0095a0676" class="">W praktyce:</p></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-804f-b666-e58e09eb644e" class="bulleted-list"><li style="list-style-type:disc">wypór zanika dużo wcześniej,</li></ul></div><div style="display:contents" dir="auto"><ul id="2fa05ea1-6a83-8067-968d-e2ead790f8d0" class="bulleted-list"><li style="list-style-type:disc">brak jest materiałów zdolnych do nieograniczonego rozprężania.</li></ul></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80c1-83f6-cef04f31e520" class=""><strong>Realistyczna granica fizyczna balonów:</strong> ~50–60 km.</p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80f7-bf83-c28c17e5e07b" class="">Powyżej tej wysokości atmosfera jest zbyt rzadka, by zapewnić istotny wypór.</p></div><div style="display:contents" dir="auto"><hr id="2fa05ea1-6a83-8027-ac04-c24baf377086"/></div><div style="display:contents" dir="auto"><h2 id="2fa05ea1-6a83-80ed-92b3-ead133218b90" class="">III. Kluczowe rozróżnienie</h2></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-80e6-9b93-dbddcef45469" class=""><strong>Samolot kończy się tam, gdzie kończy się aerodynamika.</strong></p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8076-a051-e7629fd6104b" class=""><strong>Balon kończy się tam, gdzie kończy się wypór.</strong></p></div><div style="display:contents" dir="auto"><p id="2fa05ea1-6a83-8015-8538-c21da789b7fa" class="">To dwa zupełnie różne sposoby istnienia w atmosferze – i dwa różne zestawy ograniczeń fizycznych.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
